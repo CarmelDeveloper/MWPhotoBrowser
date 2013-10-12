@@ -19,38 +19,45 @@
 #define MWLog(x, ...)
 #endif
 
-@protocol UIImagePickerControllerDelegate;
-
 // Delgate
 @class MWPhotoBrowser;
+
 @protocol MWPhotoBrowserDelegate <NSObject>
+
 - (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser;
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index;
-- (void)deletePhotoAtIndex:(NSInteger)index;
+
 @optional
+
 - (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index;
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index;
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index;
+
 @end
 
 // MWPhotoBrowser
-@interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
+@interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate, MFMailComposeViewControllerDelegate> 
 
 // Properties
+@property (nonatomic, weak) IBOutlet id<MWPhotoBrowserDelegate> delegate;
+@property (nonatomic) BOOL zoomPhotosToFill;
+@property (nonatomic) BOOL displayNavArrows;
 @property (nonatomic) BOOL displayActionButton;
-@property (nonatomic) BOOL displayPhotoButton;
-@property (nonatomic, assign) UIPopoverController *imagePopoverController;
-
-@property (nonatomic, assign) id<UINavigationControllerDelegate, UIImagePickerControllerDelegate> imagePickerDelegate;
+@property (nonatomic, readonly) NSUInteger currentIndex;
 
 // Init
-- (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated)); // Depreciated
+- (id)initWithPhotos:(NSArray *)photosArray  __attribute__((deprecated("Use initWithDelegate: instead"))); // Depreciated
 - (id)initWithDelegate:(id <MWPhotoBrowserDelegate>)delegate;
 
 // Reloads the photo browser and refetches data
 - (void)reloadData;
 
 // Set page that photo browser starts on
-- (void)setInitialPageIndex:(NSUInteger)index;
+- (void)setCurrentPhotoIndex:(NSUInteger)index;
+- (void)setInitialPageIndex:(NSUInteger)index  __attribute__((deprecated("Use setCurrentPhotoIndex: instead"))); // Depreciated
+
+// Navigation
+- (void)showNextPhotoAnimated:(BOOL)animated;
+- (void)showPreviousPhotoAnimated:(BOOL)animated;
 
 @end
-
-
