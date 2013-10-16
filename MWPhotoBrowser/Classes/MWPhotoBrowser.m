@@ -1270,7 +1270,7 @@
             } else {
                 
                 // Handle default actions
-                if (SYSTEM_VERSION_LESS_THAN(@"6")) {
+                //if (SYSTEM_VERSION_LESS_THAN(@"6")) {
                     
                     // Old handling of activities with action sheet
                     if ([MFMailComposeViewController canSendMail]) {
@@ -1289,7 +1289,7 @@
                     } else {
                         [_actionsSheet showInView:self.view];
                     }
-                    
+                  /*
                 } else {
                     
                     // Show activity view controller
@@ -1317,7 +1317,7 @@
                     }];
                     [self presentViewController:self.activityViewController animated:YES completion:nil];
                     
-                }
+                }*/
                 
             }
             
