@@ -1478,7 +1478,7 @@
     imagePickerController.delegate = self.imagePickerDelegate;
     self.imagePickerController = imagePickerController;
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 6.0){
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0){
         self.imagePopoverController = [[UIPopoverController alloc] initWithContentViewController:self.imagePickerController];
         [self.imagePopoverController presentPopoverFromRect:_toolbar.frame
                                                      inView: self.view
