@@ -337,6 +337,18 @@
             [doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
         }
         self.navigationItem.rightBarButtonItem = doneButton;
+        
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed:)];
+        // Set appearance
+        if ([UIBarButtonItem respondsToSelector:@selector(appearance)]) {
+            [cancelButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+            [cancelButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsLandscapePhone];
+            [cancelButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+            [cancelButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsLandscapePhone];
+            [cancelButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
+            [cancelButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
+        }
+        self.navigationItem.leftBarButtonItem = cancelButton;
     } else {
         // We're not first so show back button
         UIViewController *previousViewController = [self.navigationController.viewControllers objectAtIndex:self.navigationController.viewControllers.count-2];
