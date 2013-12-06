@@ -71,6 +71,7 @@
 }
 
 - (void)dealloc {
+    [super dealloc];
 }
 
 #pragma mark MWPhoto Protocol Methods
