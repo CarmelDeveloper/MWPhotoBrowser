@@ -1081,6 +1081,9 @@
 // Fades all controls on iOS 5 & 6, and iOS 7 controls slide and fade
 - (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated permanent:(BOOL)permanent {
     
+    //Controls will never be hidden. Remove return line if you want to allow the controls to be hidden.
+    return;
+    
     // Force visible if no photos
     if (![self numberOfPhotos]) hidden = NO;
     
