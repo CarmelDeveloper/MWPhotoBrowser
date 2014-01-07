@@ -271,7 +271,9 @@
     if (self.displayActionButton) {
         _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPressed:)];
     }
-    _photoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(photoButtonPressed:)];
+    if (self.displayPhotoButton) {
+        _photoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(photoButtonPressed:)];
+    }
     
     // Update
     [self reloadData];
@@ -385,7 +387,8 @@
     fixedLeftSpace.width = 32; // To balance action button
     UIBarButtonItem *flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     NSMutableArray *items = [[NSMutableArray alloc] init];
-    [items addObject:_photoButton];
+    if (_photoButton != nil)
+        [items addObject:_photoButton];
     [items addObject:flexSpace];
     if (_previousButton || _nextButton) {
         if (_previousButton && numberOfPhotos > 1) [items addObject:_previousButton];
