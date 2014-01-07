@@ -1292,13 +1292,25 @@
                     
                     // Old handling of activities with action sheet
                     if ([MFMailComposeViewController canSendMail]) {
-                        _actionsSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
-                                                           cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
-                                                           otherButtonTitles:NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), NSLocalizedString(@"Email", nil), nil];
+                        if (self.displayPhotoButton) {
+                            _actionsSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
+                                                               cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
+                                                               otherButtonTitles:NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), NSLocalizedString(@"Email", nil), nil];
+                        }else{
+                            _actionsSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
+                                                               cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
+                                                               otherButtonTitles: NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), NSLocalizedString(@"Email", nil), nil];
+                        }
                     } else {
-                        _actionsSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
-                                                           cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
-                                                           otherButtonTitles:NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), nil];
+                        if (self.displayPhotoButton) {
+                            _actionsSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
+                                                               cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
+                                                               otherButtonTitles:NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), nil];
+                        }else{
+                            _actionsSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
+                                                               cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
+                                                               otherButtonTitles:NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), nil];
+                        }
                     }
                     _actionsSheet.tag = ACTION_SHEET_OLD_ACTIONS;
                     _actionsSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
@@ -1353,13 +1365,17 @@
         // Old Actions
         _actionsSheet = nil;
         if (buttonIndex != actionSheet.cancelButtonIndex) {
+            int hasDeleteButton = 0;
+            if (self.displayPhotoButton) {
+                hasDeleteButton = 1;
+            }
             if (buttonIndex == actionSheet.firstOtherButtonIndex) {
                 [_delegate deletePhotoAtIndex:_currentPageIndex]; return;
-            } else if (buttonIndex == actionSheet.firstOtherButtonIndex + 1) {
+            } else if (buttonIndex == actionSheet.firstOtherButtonIndex + hasDeleteButton) {
                 [self savePhoto]; return;
-            } else if (buttonIndex == actionSheet.firstOtherButtonIndex + 2) {
+            } else if (buttonIndex == actionSheet.firstOtherButtonIndex + hasDeleteButton + 1) {
                 [self copyPhoto]; return;
-            } else if (buttonIndex == actionSheet.firstOtherButtonIndex + 3) {
+            } else if (buttonIndex == actionSheet.firstOtherButtonIndex + hasDeleteButton + 2) {
                 [self emailPhoto]; return;
             }
         }
