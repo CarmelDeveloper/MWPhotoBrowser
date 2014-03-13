@@ -1295,11 +1295,11 @@
                         if (self.displayPhotoButton) {
                             _actionsSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
                                                                cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
-                                                               otherButtonTitles:NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), NSLocalizedString(@"Email", nil), nil];
+                                                               otherButtonTitles:NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), NSLocalizedString(@"Email", nil), NSLocalizedString(@"Update Data", nil), nil];
                         }else{
                             _actionsSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self
                                                                cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil
-                                                               otherButtonTitles: NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), NSLocalizedString(@"Email", nil), nil];
+                                                               otherButtonTitles: NSLocalizedString(@"Save", nil), NSLocalizedString(@"Copy", nil), NSLocalizedString(@"Email", nil), NSLocalizedString(@"Update Data", nil), nil];
                         }
                     } else {
                         if (self.displayPhotoButton) {
@@ -1377,6 +1377,8 @@
                 [self copyPhoto]; return;
             } else if (buttonIndex == actionSheet.firstOtherButtonIndex + hasDeleteButton + 2) {
                 [self emailPhoto]; return;
+            }else if (buttonIndex == actionSheet.firstOtherButtonIndex + hasDeleteButton + 3) {
+                [_delegate updatePhotoDescriptionAtIndex:_currentPageIndex]; return;
             }
         }
     }else if(actionSheet == _photosSheet){
